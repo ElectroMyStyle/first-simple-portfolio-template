@@ -1,0 +1,187 @@
+@use "sass:math";
+@use "../utils/variables";
+
+@mixin absoluteAll($bottom: 0, $left: 0, $right: 0, $top: 0) {
+  position: absolute;
+  bottom: $bottom;
+  left: $left;
+  right: $right;
+  top: $top;
+}
+
+// Устанавливает позиционирование в absolute
+@mixin absoluteBottom($bottom: 0) {
+  position: absolute;
+  bottom: $bottom;
+}
+
+// Устанавливает позиционирование в absolute
+@mixin absoluteBottomLeft($bottom: 0, $left: 0) {
+  position: absolute;
+  bottom: $bottom;
+  left: $left;
+}
+
+// Устанавливает позиционирование в absolute
+@mixin absoluteBottomRight($bottom: 0, $right: 0) {
+  position: absolute;
+  bottom: $bottom;
+  right: $right;
+}
+
+// Устанавливает позиционирование в absolute
+@mixin absoluteBottomLeftRight($bottom: 0, $left: 0, $right: 0) {
+  position: absolute;
+  bottom: $bottom;
+  left: $left;
+  right: $right;
+}
+
+// Устанавливает позиционирование в absolute
+@mixin absoluteRight($right: 0, $top: 0, $bottom: 0) {
+  position: absolute;
+  bottom: $bottom;
+  right: $right;
+  top: $top;
+}
+
+// Устанавливает позиционирование в absolute
+@mixin absoluteTop($top: 0, $left: 0, $right: 0) {
+  position: absolute;
+  left: $left;
+  right: $right;
+  top: $top;
+}
+
+// Устанавливает позиционирование в fixed
+@mixin fixed($left: 0, $top: 0, $right: 0, $bottom: 0) {
+  position: fixed;
+  bottom: $bottom;
+  left: $left;
+  right: $right;
+  top: $top;
+}
+
+// Добавляет параметры к псевдо элементам
+@mixin pseudo($display: block, $pos: absolute, $content: '') {
+  content: $content;
+  display: $display;
+  position: $pos;
+}
+
+
+// config
+$pixelBase  : 16; /* 1 */
+$px-only    : true;
+
+@function parseInt($n) {
+  @return $n / ($n * 0 + 1); /* 2 */
+}
+// Конвертирует rem в px (Используется для IE8-)
+@function u($values){ /* 3 */
+  $list: (); /* 4 */
+
+  @each $value in $values { /* 5 */
+    @if (type-of($value) == "number") and ($value != 0) { /* 6 */
+
+      $unit : unit($value);     /* 7 */
+      $val  : parseInt($value); /* 2 */
+
+      @if ($px-only) and ($unit == 'rem') { /* 8 */
+        $list: append($list, ($val * $pixelBase) + px); /* 8 */
+      } @else if ($unit == 'px') or ($unit == 'rem'){ /* 9 */
+        $list: append($list, $value); /* 9 */
+      } @else {
+        @warn 'There is no unit conversion for "#{$unit}"'; /* 10 */
+      }
+    } @else {
+      $list: append($list, $value); /* 11 */
+    }
+  }
+
+  @return $list; /* 12 */
+
+}
+
+// Конвертирует px в rem
+@function rem($pixels, $context: 16px) {
+  @if (unitless($pixels)) {
+    $pixels: $pixels * 1px;
+  }
+  @if (unitless($context)) {
+    $context: $context * 1px;
+  }
+  @return math.div($pixels, $context * 1rem);
+}
+
+// Установка ширины и высоты
+@mixin size($width, $height: $width) {
+  width: $width;
+  height: $height;
+}
+
+// Установка ширины и высоты в Auto
+@mixin sizeAuto($width: auto, $height: auto) {
+  width: $width;
+  height: $height;
+}
+
+@mixin sizeWidthAuto($height: auto) {
+  width: auto;
+  height: $height;
+}
+
+@mixin sizeHeightAuto($width: auto) {
+  width: $width;
+  height: auto;
+}
+
+@mixin placeholder {
+  ::-webkit-input-placeholder { @content }
+  :-moz-placeholder           { @content }
+  :-moz-placeholder           { @content }
+  ::-moz-placeholder          { @content }
+  :-ms-input-placeholder      { @content }
+}
+
+// Убираем красные рамки вокруг INPUT в FireFox
+@mixin inputInvalid {
+  input:invalid               { @content }
+  input:-moz-submit-invalid   { @content }
+  input:-moz-ui-invalid       { @content }
+}
+
+// Media Query запрос по ключе переменных
+@mixin mediaQuery($width, $type: min) {
+  @if map_has_key($breakPoints, $width) {
+    $width: map_get($breakPoints, $width);
+    @if $type == max {
+      $width: $width - 1px;
+    }
+    @media only screen and (#{$type}-width: $width) {
+      @content;
+    }
+  }
+}
+
+// Установка Z-Index по ключу переменных
+@function zIndex($name) {
+  @if map_has_key($z-indexes, $name) {
+    @return map_get($z-indexes, $name);
+  } @else {
+    @warn 'There is no item "#{$name}" in this list; choose one of: #{$z-indexes}';
+    @return null;
+  }
+}
+
+@mixin zIndex($name) {
+  z-index: zIndex($name);
+}
+
+// Усечение текста с тремя точками по заданной ширине
+@mixin truncate($truncation-boundary) {
+  max-width: $truncation-boundary;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

@@ -1,0 +1,42 @@
+@use "sass:math";
+
+
+
+/* Media Queries */
+$desktopWidth                         : 1280px;
+$smDesktopWidth                       : 992px;
+$tabletWidth                          : 768px;
+$phoneWidth                           : 480px;
+$smPhoneWidth                         : 320px;
+$breakPoints                          : (
+        "phone-small"       : 320px,
+        "phone"             : 360px,
+        "phone-medium"      : 400px,
+        "phone-wide"        : 480px,
+        "phablet"           : 560px,
+        "tablet-small"      : 640px,
+        "tablet"            : 768px,
+        "tablet-medium"     : 960px,
+        "tablet-wide"       : 1024px,
+        "desktop"           : 1248px,
+        "desktop-wide"      : 1440px
+);
+
+
+/* Z-Indexes */
+$z-indexes                            : (
+        "in-push"               : 9999999,
+        "outdated-browser"      : 999999,
+        "modal"                 : 99999,
+        "modal-overlay"         : 9999,
+        "left-menu"             : 999,
+        "left-menu-overlay"     : 998,
+        "left-menu-substrate"   : 997,
+        "scroll-to-top"         : 99,
+        "site-header"           : 5,
+        "page-content"          : 4,
+        "page-wrapper"          : 3,
+        "site-footer"           : 3,
+        "page-brand"            : 3,
+        "page-substrate"        : 1,
+);
