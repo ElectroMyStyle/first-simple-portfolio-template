@@ -6,11 +6,15 @@
  * Telegram: @agscontent
  */
 
+import autoprefixer from "autoprefixer";
+import cssnanoPlugin from "cssnano";
+import postCssCombineMediaQuery from "postcss-combine-media-query";
+
 export default {
     plugins: [
-        require('autoprefixer'),
-        require('postcss-combine-media-query'),
-        require('cssnano')({
+        autoprefixer,
+        postCssCombineMediaQuery,
+        cssnanoPlugin({
             preset: [
                 'default', {
                     discardComments: {
