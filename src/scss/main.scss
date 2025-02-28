@@ -1,8 +1,45 @@
 @charset "UTF-8";
 
+@use "sass:math";
+
+@use "utils/libs";
+@use "utils/reset";
+@use "mixins/utility";
+@use "root";
+
 html,
 body {
-  position: relative;
+  background-color: var(--bg-color);
+  color: var(--font-color);
+  font: var(--font);
   min-height: 100vh;
+  line-height: normal;
+  position: relative;
+  scroll-behavior: smooth;
   width: 100%;
+}
+
+.page {
+  margin: 0 auto;
+  min-height: inherit;
+  padding: 1rem;
+}
+
+.header {
+
+  &-logo {
+    align-items: center;
+    display: flex;
+
+    &-img {
+      border-radius: 50%;
+      width: 3.25rem; // 52px
+      height: 3.25rem; // 52px
+    }
+
+    &-name {
+      font-size: 1.5em;
+      margin-left: 0.75rem;
+    }
+  }
 }
