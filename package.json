@@ -5,6 +5,12 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
+    "build": "npm run build:prod",
+    "build:dev": "cross-env NODE_ENV=development webpack --env development --mode development --config ./webpack-configs/webpack.dev.js --progress --color",
+    "build:prod": "cross-env NODE_ENV=production webpack --env production --mode production --config ./webpack-configs/webpack.prod.js --progress --color --bail",
+    "dev": "npm run server:dev",
+    "server": "npm run server:dev",
+    "server:dev": "cross-env NODE_ENV=development webpack serve --env development --mode development --config ./webpack-configs/webpack.dev.js",
     "lint": "eslint src/**/*.{js,mjs}",
     "prettify": "prettier --write src/**/*.{js,mjs}"
   },
