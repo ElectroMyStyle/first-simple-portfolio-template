@@ -1,20 +1,25 @@
 :root {
+  --bg-color: #fff;
   --primary-color: #000;
 
-  --font-color: #424242;
+  --link-color: var(--primary-color);
+  --link-decoration-color: #B25EEC;
+  --link-decoration-height: 1px;
+
   --font-family: "Roboto", sans-serif;
   --font-size: 1em;
   --font: 1em "Roboto", sans-serif;
 
-  --bg-color: #fff;
+  --footer-divider-bg: #d6d6d6;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --primary-color: #141414;
-
-    --font-color: #fff;
-
     --bg-color: #141414;
+    --primary-color: #e6e6e6; // rgb(230, 230, 230)
+
+    --link-color: var(--primary-color);
+
+    --footer-divider-bg: #292929;
   }
 }
